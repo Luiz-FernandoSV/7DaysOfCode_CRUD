@@ -17,16 +17,32 @@
         <form class="form js-form">
             <label class="form_label_nome form_label" for="nome">Nome (Campo Obrigatório) </label>
 
-            <input class="form_nome campo_form" id="campo_nome" type="text" name="nome" placeholder="Digite o nome da pessoa" minlength="3" maxlength="120" pattern="(^[a-zA-Z\s]+$)" required>
-            <label class="label_validacao" for="nome">O nome precisa ter no mínimo três letras e no máximo cento e vinte, não é possível informar números</label>
+            <input class="form_nome campo_form" id="campo_nome" type="text" name="nome"
+                placeholder="Digite o nome da pessoa" minlength="3" maxlength="120" pattern="^[A-Za-zÀ-ÿ\s]+$" required>
+            <label class="label_validacao" for="nome">O nome precisa ter no mínimo três letras e no máximo cento e
+                vinte, não é possível informar números</label>
 
-            <label class="form_label_nascimento form_label" for="data_nascimento">Data de Nascimento (Campo Obrigatório) </label>
+            <label class="form_label_nascimento form_label" for="data_nascimento">Data de Nascimento (Campo Obrigatório)
+            </label>
 
             <input class="form_nascimento campo_form" id="campo_nascimento" type="date" name="data_nascimento" required>
 
             <button class="btn_enviar" id="btn_enviar" type="submit">Salvar</button>
         </form>
+
+        <table class="tabela">
+        <thead>
+            <tr>
+                <td>Nome</td>
+                <td>Data de Nascimento</td>
+            </tr>
+        </thead>
+        <tbody class="conteudo-tabela">
+        </tbody>
+    </table>
+
     </div>
+
 
     <script src="./script.js"></script>
 </body>
