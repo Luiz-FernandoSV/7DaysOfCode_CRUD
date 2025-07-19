@@ -14,20 +14,36 @@
     <div class="container_principal">
         <h1 class="titulo_principal">Gerenciador de Aniversários</h1>
         <!--Formulário de adição-->
-        <form class="form js-form">
-            <label class="form_label_nome form_label" for="nome">Nome (Campo Obrigatório) </label>
+        <form class="form">
+            <label class="form_label" for="nome">Nome (Campo Obrigatório) </label>
 
             <input class="form_nome campo_form" id="campo_nome" type="text" name="nome"
                 placeholder="Digite o nome da pessoa" minlength="3" maxlength="120" pattern="^[A-Za-zÀ-ÿ\s]+$" required>
             <label class="label_validacao" for="nome">O nome precisa ter no mínimo três letras e no máximo cento e
                 vinte, não é possível informar números</label>
 
-            <label class="form_label_nascimento form_label" for="data_nascimento">Data de Nascimento (Campo Obrigatório)
+            <label class="form_label" for="data_nascimento">Data de Nascimento (Campo Obrigatório)
             </label>
 
             <input class="form_nascimento campo_form" id="campo_nascimento" type="date" name="data_nascimento" required>
 
-            <button class="btn_enviar" id="btn_enviar" type="submit">Salvar</button>
+            <button class="btn" id="btn_enviar" type="submit">Salvar</button>
+        </form>
+
+        <form id="form_editar" class="form">
+            <h1>Editar Informações</h1>
+            <label class="form_label form_label" for="nome">Novo nome</label>
+
+            <input class="form_nome campo_form" id="campo_nome_editar" type="text" name="nome"
+                placeholder="Digite o nome da pessoa" minlength="3" maxlength="120" pattern="^[A-Za-zÀ-ÿ\s]+$" required>
+            <label class="label_validacao" for="nome">O nome precisa ter no mínimo três letras e no máximo cento e
+                vinte, não é possível informar números</label>
+
+            <label class="form_label_nascimento form_label" for="data_nascimento">Nova data de Nascimento</label>
+
+            <input class="form_nascimento campo_form" id="campo_nascimento_editar" type="date" name="data_nascimento" required>
+
+            <button class="btn" id="btn_editar" type="submit">Editar</button>
         </form>
 
         <table class="tabela">
@@ -35,6 +51,7 @@
             <tr>
                 <td>Nome</td>
                 <td>Data de Nascimento</td>
+                <td>Ações</td>
             </tr>
         </thead>
         <tbody class="conteudo-tabela">

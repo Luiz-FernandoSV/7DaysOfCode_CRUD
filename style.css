@@ -43,7 +43,7 @@
     transition: 0.2s;
     outline: none;
 }
-.btn_enviar{
+.btn{
     padding: 10px;
     border: 1px solid transparent;
     border-radius: 3px;
@@ -55,6 +55,16 @@
 .btn_enviar:hover{
     transition: 0.2s;
     background-color: rgb(25, 97, 179);
+}
+/* Estilo do form de edição*/
+#form_editar{
+    display: none;
+}
+#form_editar.ativo{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 /* Estilos da tabela */
 .tabela{
@@ -75,4 +85,10 @@
     border-bottom: 1px solid gray;
     border-left: 1px solid gray;
     border-right: 1px solid gray;
+}
+.btn_editar{
+    background-color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
 }

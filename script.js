@@ -7,14 +7,15 @@ window.addEventListener('load',()=>{
     // Exibe na tabela
     // Para cada pessoa registrada no array executa a função
     for(i = 0; i < pessoasStorage.length;i++){
-        ExibirPessoa(pessoasStorage[i])
+        ExibirPessoa(pessoasStorage[i],i)
     }
 })
 
-// Seleciona o formulário
+// Seleciona os formulários
 const form = document.querySelector('.form')
+
 //Adiciona o evento de envio
-form.addEventListener('submit',(event)=>{
+form.addEventListener('submit',(event)=> {
     // Previne o recarregamento da página ao adicionar uma pessoa
     event.preventDefault()
     // Captura o valor do campo nome
@@ -35,11 +36,12 @@ form.addEventListener('submit',(event)=>{
 })
 
 // Função para exibir as pessoas na tabela
-function ExibirPessoa(pessoa){
+function ExibirPessoa(pessoa,indice){
     // Seleciona o tbody da tabela
     let conteudo_tabela = document.querySelector('.conteudo-tabela');
     // Cria uma nova linha
     let novaLinha = document.createElement('tr');
+    novaLinha.dataset.index = indice
     // Cria uma nova célula
     let tdNome = document.createElement('td');
     // Atribui o valor da célula com o nome do objeto
@@ -48,9 +50,76 @@ function ExibirPessoa(pessoa){
     let tdNascimento = document.createElement('td');
     // Atribui o valor da célula com a data de nascimento do objeto
     tdNascimento.textContent = pessoa.nascimento;
-    // Adiciona as 2 células na nova linha
-    novaLinha.appendChild(tdNome)
-    novaLinha.appendChild(tdNascimento)
+    // Cria uma célula para guardar o botão de editar
+    let tdEditar = document.createElement('td');
+    // Cria o botão
+    let btnEditar = document.createElement('button');
+    // Adiciona o texto
+    btnEditar.textContent = "Editar";
+    // Adiciona uma classe
+    btnEditar.classList.add('btn_editar');
+    // Adiciona uma função para editar os dados
+    btnEditar.addEventListener('click', function(){
+        editarPessoa(indice,pessoa.nome,pessoa.nascimento)
+    })
+    // Adiciona o botão a célula
+    tdEditar.appendChild(btnEditar)
+    // Adiciona as 3 células na nova linha
+    novaLinha.appendChild(tdNome);
+    novaLinha.appendChild(tdNascimento);
+    novaLinha.appendChild(tdEditar);
     // Adiciona a nova linha no tbody
     conteudo_tabela.appendChild(novaLinha);
 }
+// ---
+var form_editar = document.querySelector('#form_editar');
+// índice da pessoa sendo editada
+let indiceEmEdicao = null; 
+
+function editarPessoa(indice, nome, nascimento) {
+    // salva o índice atual
+    indiceEmEdicao = indice; 
+    form_editar.classList.add('ativo');
+
+    // Preenche os campos de edição
+    let campo_nome = form_editar.querySelector('#campo_nome_editar');
+    campo_nome.value = nome;
+
+    let campo_nascimento = form_editar.querySelector('#campo_nascimento_editar');
+    campo_nascimento.value = nascimento;
+}
+
+// Adiciona o event listener apenas uma vez
+form_editar.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    if (indiceEmEdicao === null) return; // segurança
+
+    // Seleciona os campos
+    let campo_nome = form_editar.querySelector('#campo_nome_editar');
+    let campo_nascimento = form_editar.querySelector('#campo_nascimento_editar');
+
+    // Captura os novos valores
+    const novoNome = campo_nome.value;
+    const novoNascimento = campo_nascimento.value;
+
+    // Atualiza o array no índice necessário
+    pessoasStorage[indiceEmEdicao].nome = novoNome;
+    pessoasStorage[indiceEmEdicao].nascimento = novoNascimento;
+
+    // Atualiza o localStorage
+    localStorage.setItem('pessoas', JSON.stringify(pessoasStorage));
+
+    // Atualiza a tabela
+    let conteudo_tabela = document.querySelector('.conteudo-tabela');
+    let linha = conteudo_tabela.querySelector(`tr[data-index="${indiceEmEdicao}"]`);
+    if (linha) {
+        linha.children[0].textContent = novoNome;
+        linha.children[1].textContent = novoNascimento;
+    }
+
+    // Esconde o form de edição
+    form_editar.classList.remove('ativo');
+    // limpa o índice
+    indiceEmEdicao = null; 
+});
