@@ -86,7 +86,10 @@
     border-left: 1px solid gray;
     border-right: 1px solid gray;
 }
-.btn_editar{
+.tdAcoes{
+    text-align: center;
+}
+.btn_editar,.btn_remover{
     background-color: white;
     padding: 10px;
     border: none;
