@@ -52,8 +52,11 @@ function ExibirPessoa(pessoa,indice){
     tdNome.textContent = pessoa.nome;
     // Cria a segunda célula
     let tdNascimento = document.createElement('td');
+    // Formata o valor para DD-MM-AAAA
+    const [ano,mes,dia] = pessoa.nascimento.split("-");
+    const nascimentoFormatado = `${dia}/${mes}/${ano}`
     // Atribui o valor da célula com a data de nascimento do objeto
-    tdNascimento.textContent = pessoa.nascimento;
+    tdNascimento.textContent = nascimentoFormatado
     // Cria uma célula para guardar o botão de editar e remover
     let tdEditar = document.createElement('td');
     let tdRemover = document.createElement('td');
@@ -137,12 +140,16 @@ form_editar.addEventListener('submit', (event) => {
     // Atualiza o localStorage
     localStorage.setItem('pessoas', JSON.stringify(pessoasStorage));
 
+    // Formata o valor para DD-MM-AAAA
+    const [ano,mes,dia] = novoNascimento.split("-");
+    const nascimentoFormatado = `${dia}/${mes}/${ano}`
+
     // Atualiza a tabela
     let conteudo_tabela = document.querySelector('.conteudo-tabela');
     let linha = conteudo_tabela.querySelector(`tr[data-index="${indiceEmEdicao}"]`);
     if (linha) {
         linha.children[0].textContent = novoNome;
-        linha.children[1].textContent = novoNascimento;
+        linha.children[1].textContent = nascimentoFormatado;
     }
 
     // Esconde o form de edição
