@@ -22,15 +22,16 @@ form.addEventListener('submit',(event)=> {
     let nomePessoa = form.querySelector('#campo_nome').value
     // Captura o valor do campo nascimento
     let nascimentoPessoa = form.querySelector('#campo_nascimento').value
-    // Exibe os dados capturados no console
+    // Cria um objeto com os dados da pessoa
     let novaPessoa = {
         nome:nomePessoa,
         nascimento:nascimentoPessoa
     }
     // Adiciona a pessoa no array
-    pessoasStorage.push(novaPessoa)
+    let indice = pessoasStorage.push(novaPessoa) - 1
+    console.log("nova pessoa na casa: ",indice ," pessoa: ", novaPessoa)
     // Exibe a pessoa na tabela
-    ExibirPessoa(novaPessoa)
+    ExibirPessoa(novaPessoa,indice)
     // Atualiza o array
     localStorage.setItem('pessoas',JSON.stringify(pessoasStorage))
 
@@ -90,14 +91,14 @@ function ExibirPessoa(pessoa,indice){
 }
 // ---
 var form_editar = document.querySelector('#form_editar');
-// índice da pessoa sendo editada
-let indiceEmEdicao = null; 
 
 function editarPessoa(indice, nome, nascimento) {
-    // salva o índice atual
-    indiceEmEdicao = indice; 
+    
+    // Exibe o form de edição
     form_editar.classList.add('ativo');
 
+    let campo_id = form_editar.querySelector('#id_usuario')
+    campo_id.value = indice
     // Preenche os campos de edição
     let campo_nome = form_editar.querySelector('#campo_nome_editar');
     campo_nome.value = nome;
@@ -123,13 +124,13 @@ function removerPessoa(indice){
 form_editar.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    if (indiceEmEdicao === null) return; // segurança
-
     // Seleciona os campos
+    let campo_id = form_editar.querySelector('#id_usuario')
     let campo_nome = form_editar.querySelector('#campo_nome_editar');
     let campo_nascimento = form_editar.querySelector('#campo_nascimento_editar');
 
     // Captura os novos valores
+    let indiceEmEdicao = campo_id.value
     let novoNome = campo_nome.value;
     let novoNascimento = campo_nascimento.value;
 
@@ -152,8 +153,11 @@ form_editar.addEventListener('submit', (event) => {
         linha.children[1].textContent = nascimentoFormatado;
     }
 
+    // Limpa os campos
+    campo_id.value = ''
+    campo_nome.value = ''
+    campo_nascimento = ''
+
     // Esconde o form de edição
-    form_editar.classList.remove('ativo');
-    // limpa o índice
-    indiceEmEdicao = null; 
+    form_editar.classList.remove('ativo'); 
 });

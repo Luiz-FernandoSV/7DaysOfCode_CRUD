@@ -13,7 +13,7 @@
 <body>
     <div class="container_principal">
         <h1 class="titulo_principal">Gerenciador de Aniversários</h1>
-        <!--Formulário de adição-->
+        <!-- Formulário de adição -->
         <form class="form">
             <label class="form_label" for="nome">Nome (Campo Obrigatório) </label>
 
@@ -28,10 +28,12 @@
             <input class="form_nascimento campo_form" id="campo_nascimento" type="date" name="data_nascimento" required>
 
             <button class="btn" id="btn_enviar" type="submit">Salvar</button>
-        </form>
+        </form> 
 
+        <!-- Formulário de edição -->
         <form id="form_editar" class="form">
             <h1>Editar Informações</h1>
+            <input type="number" id="id_usuario" hidden >
             <label class="form_label form_label" for="nome">Novo nome</label>
 
             <input class="form_nome campo_form" id="campo_nome_editar" type="text" name="nome"
@@ -46,6 +48,7 @@
             <button class="btn" id="btn_editar" type="submit">Editar</button>
         </form>
 
+        <!-- Tabela com os conteudos -->
         <table class="tabela">
         <thead>
             <tr>
